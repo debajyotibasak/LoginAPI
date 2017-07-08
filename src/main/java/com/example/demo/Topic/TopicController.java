@@ -1,7 +1,7 @@
 package com.example.demo.Topic;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -9,14 +9,21 @@ import java.util.List;
 @RestController
 public class TopicController {
 
+    @Autowired
+    private TopicService topicService;
+
         @RequestMapping("/topics")
         public List<Topic> getAllTopics(){
-            return Arrays.asList(
-                    new Topic("Spring", "Spring Framework", "Spring Desciption"),
-                    new Topic("Hibernate", "Hibernate Framework", "Hibernate Desciption"),
-                    new Topic("Play", "Spring Framework", "Play Desciption"),
-                    new Topic("JQuery", "JQuery Framework", "JQuery Desciption"),
-                    new Topic("GRails", "GRails Framework", "GRails Desciption")
-            );
+            return topicService.getAllTopics();
+        }
+
+        @RequestMapping("/topics/{id}")
+        public Topic getTopic(@PathVariable String id){
+            return topicService.getTopic(id);
+        }
+
+        @RequestMapping(method = RequestMethod.POST, value = "/topics")
+        public void addTopic(@RequestBody Topic topic){
+            topicService.addTopic(topic);
         }
 }
