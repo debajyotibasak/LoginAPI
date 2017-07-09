@@ -1,8 +1,13 @@
 package com.example.demo.Topic;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity //Used to tell JPA to make Topic table and respective columns.
 public class Topic {
 
     /*The generated JSON has key name corresponding to the property names of the Topic class*/
+    @Id //This member variable will act as a primary key
     private String id;
     private String name;
     private String description;
